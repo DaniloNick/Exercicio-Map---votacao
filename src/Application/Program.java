@@ -14,6 +14,7 @@ public class Program {
         Map<String, Integer> mapVotos = new LinkedHashMap<>();
         String maisVotado = null;
         Integer maisVotos = 0;
+        Integer totalVotos = 0;
 
         System.out.println("Digite o caminho do arquivo:");
         String patch = sc.nextLine();
@@ -45,9 +46,17 @@ public class Program {
                     maisVotos = votos;
                 }
             }
-            System.out.println("\nCandidato " + maisVotado + " venceu a eleicao com " + maisVotos + " votos!");
+            for (Integer votos : mapVotos.values()) {
+                totalVotos += votos;
+            }
+
+            double porcentagem = (double) maisVotos / totalVotos * 100;
+
+            System.out.println("\nCandidato " + maisVotado + " venceu a eleicao com " + maisVotos + " votos" +
+                    "\ncorrespondendo a " + String.format("%.2f", porcentagem) + "% do votos validos!");
+
         } catch (IOException e) {
-            System.out.println("Erro :" + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
